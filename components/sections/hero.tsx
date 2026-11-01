@@ -1,34 +1,30 @@
 import Image from "next/image";
-import { site, socials } from "@/data/site";
+import { hero, site, socials } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/section";
 import { cv, imageme } from "@/app/assets";
+import { getYearsOfExperience } from "@/lib/experience";
 
-export function Hero() {
+// Split layout: intro text on the left, photo on the right (photo first on phones).
+export async function Hero() {
+  const years = await getYearsOfExperience();
+
   return (
     <Section
       id="profile"
-      className="desktop:flex desktop:min-h-[80vh] desktop:justify-center desktop:gap-20"
+      className="flex flex-col-reverse items-center gap-10 pt-4 desktop:flex-row desktop:justify-between desktop:gap-16 desktop:pt-8"
     >
-      <div className="relative mx-auto mb-8 size-[46vw] shrink-0 tablet:size-68.75 desktop:mx-0 desktop:my-auto desktop:size-100">
-        <Image
-          src={imageme}
-          alt={site.name}
-          fill
-          preload
-          placeholder="blur"
-          sizes="(min-width: 1200px) 400px, (min-width: 600px) 275px, 46vw"
-          className="rounded-full object-cover"
-        />
-      </div>
-
-      <div className="self-center text-center">
+      <div className="max-w-2xl text-center desktop:text-left">
         <p className="font-semibold">Hello, I&apos;m</p>
-        <h1 className="text-[2rem] font-semibold tablet:text-5xl">{site.name}</h1>
-        <p className="text-xl font-semibold tablet:text-[1.75rem]">{site.role}</p>
-        <p className="mb-4 tablet:text-lg">{site.specialty}</p>
+        <h1 className="text-4xl font-semibold tablet:text-5xl wide:text-6xl">{site.name}</h1>
+        <p className="mt-1 text-xl font-semibold tablet:text-2xl">{site.role}</p>
+        <p className="tablet:text-lg">{site.specialty}</p>
 
-        <div className="flex flex-wrap justify-center gap-4 tablet:flex-nowrap">
+        <p className="mx-auto mt-5 max-w-xl leading-relaxed tablet:text-lg desktop:mx-0">
+          {hero.intro}
+        </p>
+
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-4 desktop:justify-start">
           <Button asChild variant="outlined" size="pill">
             <a href={cv} target="_blank" rel="noopener noreferrer">
               Download CV
@@ -37,21 +33,48 @@ export function Hero() {
           <Button asChild variant="solid" size="pill">
             <a href="#contact">Contact Info</a>
           </Button>
+          <div className="flex gap-4 tablet:ml-2">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`My ${s.label} profile`}
+                className="transition-opacity duration-300 hover:opacity-70"
+              >
+                <Image src={s.icon} alt="" width={32} height={32} className="size-8 dark:invert" />
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-4 flex justify-center gap-4">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`My ${s.label} profile`}
-            >
-              <Image src={s.icon} alt="" width={32} height={32} className="size-8 dark:invert" />
-            </a>
+        <dl className="mt-10 grid grid-cols-2 gap-6 border-t-[0.1rem] border-border pt-8 tablet:grid-cols-4">
+          {hero.stats(years).map((stat) => (
+            // Label comes first in the markup for screen readers, but shows below the number.
+            <div key={stat.label} className="flex flex-col-reverse justify-end">
+              <dt className="text-sm text-muted-foreground">{stat.label}</dt>
+              <dd className="text-3xl font-semibold tablet:text-4xl">{stat.value}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
+      </div>
+
+      {/* Photo with an offset outline ring behind it. */}
+      <div className="relative size-[min(64vw,280px)] shrink-0 tablet:size-80 desktop:size-96 wide:size-104">
+        <div
+          aria-hidden
+          className="absolute inset-0 translate-x-3 translate-y-3 rounded-full border-[0.1rem] border-border"
+        />
+        <Image
+          src={imageme}
+          alt={site.name}
+          fill
+          preload
+          placeholder="blur"
+          sizes="(min-width: 1400px) 416px, (min-width: 1200px) 384px, (min-width: 600px) 320px, 64vw"
+          className="rounded-full object-cover"
+        />
       </div>
     </Section>
   );

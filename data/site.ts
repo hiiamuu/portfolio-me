@@ -29,6 +29,19 @@ export const site = {
   location: "Bokaro, Jharkhand",
 };
 
+export type Stat = { value: string; label: string };
+
+export const hero = {
+  intro:
+    "I build fast, scalable web applications with Next.js, React and Node.js, and lead frontend teams from planning to production.",
+  stats: (years: number): Stat[] => [
+    { value: `${years}+`, label: "Years Experience" },
+    { value: "5", label: "Projects Delivered" },
+    { value: "3", label: "MVPs Shipped" },
+    { value: "5+", label: "Juniors Mentored" },
+  ],
+};
+
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#profile" },
   { label: "About", href: "#about" },

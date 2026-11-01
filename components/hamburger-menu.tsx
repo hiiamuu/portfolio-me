@@ -17,18 +17,18 @@ export function HamburgerMenu({ links }: { links: NavLink[] }) {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-6 w-[30px] flex-col justify-between"
+        className="flex h-6 w-7.5 flex-col justify-between"
       >
-        <span className={cn(line, open && "translate-x-[10px] translate-y-[5px] rotate-45")} />
+        <span className={cn(line, open && "translate-y-2.75 rotate-45")} />
         <span className={cn(line, open && "opacity-0")} />
-        <span className={cn(line, open && "translate-x-[10px] -translate-y-[5px] -rotate-45")} />
+        <span className={cn(line, open && "-translate-y-2.75 -rotate-45")} />
       </button>
 
       <ul
         id="mobile-menu"
         className={cn(
           "absolute top-full right-0 z-50 w-max overflow-hidden bg-background transition-all duration-300 ease-in-out",
-          open ? "max-h-[300px]" : "max-h-0"
+          open ? "max-h-75" : "max-h-0"
         )}
       >
         {links.map((link) => (

@@ -10,9 +10,9 @@ async function CurrentYear() {
 
 export function Footer() {
   return (
-    <footer className="mx-4 h-[40vh] tablet:h-[26vh]">
-      <nav className="mb-8 flex items-center justify-around tablet:mb-0 tablet:h-[17vh]">
-        <ul className="flex flex-col gap-2 text-center tablet:flex-row tablet:gap-8 tablet:text-2xl">
+    <footer className="mx-4 pt-8 pb-12">
+      <nav className="mb-8 flex justify-center">
+        <ul className="flex flex-col gap-2 text-center tablet:flex-row tablet:flex-wrap tablet:justify-center tablet:gap-x-8 tablet:text-2xl">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a href={link.href} className="nav-link">

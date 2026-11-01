@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },
+      // Importing a PDF (e.g. the CV in app/assets) returns its URL.
+      "*.pdf": {
+        type: "asset",
+      },
     },
   },
 };

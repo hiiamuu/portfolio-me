@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { skillGroups } from "@/data/site";
+import { jobs } from "@/data/site";
 import { Section } from "@/components/section";
 import { SectionHeading } from "@/components/section-heading";
 import { InfoCard } from "@/components/info-card";
@@ -7,28 +7,36 @@ import { ScrollArrow } from "@/components/scroll-arrow";
 
 export function Experience() {
   return (
-    <Section id="experience" className="mt-8 desktop:mt-0">
-      <SectionHeading eyebrow="Explore My" title="Experience" />
+    <Section id="experience">
+      <SectionHeading eyebrow="My Professional" title="Experience" />
 
-      <div className="my-8 flex flex-col gap-8 wide:flex-row">
-        {skillGroups.map((group) => (
-          <InfoCard key={group.title}>
-            <h3 className="mb-8 text-xl font-semibold text-muted-foreground tablet:text-[1.75rem]">
-              {group.title}
-            </h3>
-            <ul className="flex flex-wrap justify-around gap-10 text-left">
-              {group.skills.map((skill) => (
-                <li key={skill.name} className="flex w-40 justify-around gap-2">
+      <div className="my-8 flex flex-col gap-8">
+        {jobs.map((job) => (
+          <InfoCard key={job.company + job.period} className="text-left tablet:px-10 tablet:py-8">
+            <div className="mb-6 flex flex-col gap-1 tablet:flex-row tablet:items-start tablet:justify-between">
+              <div>
+                <h3 className="text-xl font-semibold tablet:text-2xl">{job.role}</h3>
+                <p className="font-semibold">{job.company}</p>
+                <p>{job.location}</p>
+              </div>
+              <p className="w-fit shrink-0 rounded-pill border-[0.1rem] border-border px-4 py-1 text-sm font-semibold">
+                {job.period}
+              </p>
+            </div>
+
+            <ul className="grid gap-x-10 gap-y-5 desktop:grid-cols-2">
+              {job.highlights.map((h) => (
+                <li key={h.label} className="flex items-start gap-3">
                   <Image
                     src="/assets/checkmark.png"
                     alt=""
-                    width={32}
-                    height={32}
-                    className="h-8 w-auto self-start dark:invert"
+                    width={24}
+                    height={24}
+                    className="mt-0.5 size-6 shrink-0 dark:invert"
                   />
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold">{skill.name}</h4>
-                    <p>{skill.level}</p>
+                  <div>
+                    <h4 className="font-semibold">{h.label}</h4>
+                    <p>{h.text}</p>
                   </div>
                 </li>
               ))}
@@ -37,7 +45,7 @@ export function Experience() {
         ))}
       </div>
 
-      <ScrollArrow to="#contact" />
+      <ScrollArrow to="#projects" />
     </Section>
   );
 }

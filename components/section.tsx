@@ -1,14 +1,11 @@
 import { cn } from "@/lib/utils";
 
-// Shared section frame from the original site: 10rem side margins and a
-// near-full-screen height on desktop; 5% margins and natural height below 1200px.
+// Shared section frame: 10rem side margins on desktop, 5% below 1200px.
+// Height follows the content, with even vertical padding between sections.
 export function Section({ className, ...props }: React.ComponentProps<"section">) {
   return (
     <section
-      className={cn(
-        "relative mx-[5%] box-border pt-[4vh] desktop:mx-40 desktop:h-[96vh] desktop:min-h-fit",
-        className
-      )}
+      className={cn("relative mx-[5%] py-12 desktop:mx-40 desktop:py-16", className)}
       {...props}
     />
   );

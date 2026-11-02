@@ -1,7 +1,6 @@
 # Netlify build settings for the Next.js app.
 # These override the old dashboard settings from the plain HTML site
 # (no build command, publish directory ".").
-# Netlify detects Next.js and runs it with its Next.js runtime automatically.
 
 [build]
   command = "pnpm build"
@@ -10,3 +9,8 @@
 [build.environment]
   # Next.js 16 needs Node 20.9+.
   NODE_VERSION = "22"
+
+# Run the site with Netlify's Next.js runtime. Without this, Netlify served the
+# raw .next build folder as static files and the homepage returned 404.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
